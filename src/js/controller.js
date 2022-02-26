@@ -1,3 +1,4 @@
+//jshint esversion:8
 const recipeContainer = document.querySelector('.recipe');
 
 const timeout = function (s) {
