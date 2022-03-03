@@ -20,10 +20,8 @@
     "url": "https://github.com/AnshumanMahato/Forkify-JSCourseProject/issues"
   },
   "homepage": "https://github.com/AnshumanMahato/Forkify-JSCourseProject#readme",
-  "dependencies": {
-    "parcel": "^2.3.2"
-  },
   "devDependencies": {
-    "@parcel/transformer-sass": "^2.3.2"
+    "@parcel/transformer-sass": "^2.3.2",
+    "parcel": "^2.3.2"
   }
 }
