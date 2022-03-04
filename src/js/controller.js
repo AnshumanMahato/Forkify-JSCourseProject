@@ -99,9 +99,9 @@ const showRecipe = async function () {
         <svg class="recipe__icon">
           <use href="${icons}#icon-check"></use>
         </svg>
-        <div class="recipe__quantity">${ing.quantity}</div>
+        <div class="recipe__quantity">${ing.quantity || ''}</div>
         <div class="recipe__description">
-          <span class="recipe__unit">${ing.unit}</span></span>
+          <span class="recipe__unit">${ing.unit || ''}</span></span>
           ${ing.description}
         </div>
       </li>`;
