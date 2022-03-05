@@ -126,7 +126,7 @@ class RecipeView {
               `;
         this.#clear();
         this.#parentElement.insertAdjacentHTML('afterbegin',markup);
-    };
+    }
 
     render(data) {
         this.#data = data;
