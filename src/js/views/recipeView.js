@@ -4,33 +4,35 @@ import icons from 'url:../../img/icons.svg';
 import fracty from 'fracty';
 
 class RecipeView {
-    #parentElement = document.querySelector('.recipe');
-    #data;
-    
-    #clear() {
-        this.#parentElement.innerHTML = '';
-    }
+  #parentElement = document.querySelector('.recipe');
+  #data;
+  #errMessage = 'We could not find the recipe! Please try another one.';
+  #message = '';
 
-    #generateIngredientMarkup(ing) {
-        
-        // Creating markup for the ingredient item
+  #clear() {
+    this.#parentElement.innerHTML = '';
+  }
 
-        return `<li class="recipe__ingredient">
+  #generateIngredientMarkup(ing) {
+    // Creating markup for the ingredient item
+
+    return `<li class="recipe__ingredient">
         <svg class="recipe__icon">
           <use href="${icons}#icon-check"></use>
         </svg>
-        <div class="recipe__quantity">${ing.quantity ? fracty(ing.quantity) : ''}</div>
+        <div class="recipe__quantity">${
+          ing.quantity ? fracty(ing.quantity) : ''
+        }</div>
         <div class="recipe__description">
           <span class="recipe__unit">${ing.unit || ''}</span></span>
           ${ing.description}
         </div>
       </li>`;
+  }
 
-    }
-
-    #generateMarkup() {
-        const recipe = this.#data;
-        return `        
+  #generateMarkup() {
+    const recipe = this.#data;
+    return `        
         <figure class="recipe__fig">
         <img src="${recipe.image}" alt="Tomato" class="recipe__img" />
         <h1 class="recipe__title">
@@ -114,32 +116,62 @@ class RecipeView {
           </svg>
         </a>
       </div>`;
-    }
+  }
 
-    renderSpinner() {
-        const markup = `
+  renderSpinner() {
+    const markup = `
         <div class="spinner">
                 <svg>
                   <use href="${icons}#icon-loader"></use>
                 </svg>
               </div>
               `;
-        this.#clear();
-        this.#parentElement.insertAdjacentHTML('afterbegin',markup);
-    }
+    this.#clear();
+    this.#parentElement.insertAdjacentHTML('afterbegin', markup);
+  }
 
-    render(data) {
-        this.#data = data;
-        const markup = this.#generateMarkup();
-        this.#clear();
-        this.#parentElement.insertAdjacentHTML('afterbegin', markup);
-    }
+  renderError(message = this.#errMessage) {
+    const markup = `
+      <div class="error">
+      <div>
+        <svg>
+          <use href="${icons}#icon-alert-triangle"></use>
+        </svg>
+      </div>
+      <p>${message}</p>
+    </div> 
+      `;
 
-    addHandlerRender(handler) {
-      ['hashchange','load'].forEach(ev => window.addEventListener(ev,handler));
-    }
+    this.#clear();
+    this.#parentElement.insertAdjacentHTML('afterbegin', markup);
+  }
 
+  renderMessage(message = this.#message) {
+    const markup = `
+      <div class="message">
+          <div>
+            <svg>
+              <use href="${icons}#icon-smile"></use>
+            </svg>
+          </div>
+          <p>${message}</p>
+        </div>
+      `;
 
+    this.#clear();
+    this.#parentElement.insertAdjacentHTML('afterbegin', markup);
+  }
+
+  render(data) {
+    this.#data = data;
+    const markup = this.#generateMarkup();
+    this.#clear();
+    this.#parentElement.insertAdjacentHTML('afterbegin', markup);
+  }
+
+  addHandlerRender(handler) {
+    ['hashchange', 'load'].forEach(ev => window.addEventListener(ev, handler));
+  }
 }
 
 export default new RecipeView();

@@ -15,26 +15,23 @@ console.log('Built');
 
 const controlRecipes = async function () {
   try {
-
     const id = window.location.hash.slice(1);
-    if(!id) return;
+    if (!id) return;
 
     recipeView.renderSpinner();
-    
+
     // Loading recipe
     await model.loadRecipe(id);
 
     //Rendering recipe
     recipeView.render(model.state.recipe);
-
   } catch (error) {
-    alert(error);
+    recipeView.renderError();
   }
 };
 
-
-const init =  function() {
+const init = function () {
   recipeView.addHandlerRender(controlRecipes);
-}
+};
 
 init();
