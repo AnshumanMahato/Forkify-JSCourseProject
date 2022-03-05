@@ -1,11 +1,10 @@
-//jshint esversion:8
 import * as model from './model.js';
 import recipeView from './views/recipeView.js';
 
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
-const recipeContainer = document.querySelector('.recipe');
+// const recipeContainer = document.querySelector('.recipe');
 
 console.log('Built');
 
@@ -14,7 +13,7 @@ console.log('Built');
 
 ///////////////////////////////////////
 
-const showRecipe = async function () {
+const controlRecipes = async function () {
   try {
 
     const id = window.location.hash.slice(1);
@@ -33,8 +32,9 @@ const showRecipe = async function () {
   }
 };
 
-['hashchange','load'].forEach(ev => window.addEventListener(ev,showRecipe));
 
-if (module.hot) {
-  module.hot.accept(() => location.reload());
+const init =  function() {
+  recipeView.addHandlerRender(controlRecipes);
 }
+
+init();
