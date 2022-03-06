@@ -25,12 +25,13 @@ const controlRecipes = async function () {
 
     //Rendering recipe
     recipeView.render(model.state.recipe);
+    
   } catch (error) {
+
     console.error(error);
-    if(error.cause === 'TIMEOUT')
-      recipeView.renderError(error.message);
-    if(error.cause === 'NOT_FOUND')
-      recipeView.renderError();
+
+    if (error.cause === 'TIMEOUT') recipeView.renderError(error.message);
+    if (error.cause === 'NOT_FOUND') recipeView.renderError();
   }
 };
 
