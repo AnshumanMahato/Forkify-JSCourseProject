@@ -4,16 +4,16 @@ import icons from 'url:../../img/icons.svg';
 import fracty from 'fracty';
 
 class RecipeView {
-  #parentElement = document.querySelector('.recipe');
-  #data;
-  #errMessage = 'We could not find the recipe! Please try another one.';
-  #message = '';
+  _parentElement = document.querySelector('.recipe');
+  _data;
+  _errMessage = 'We could not find the recipe! Please try another one.';
+  _message = '';
 
-  #clear() {
-    this.#parentElement.innerHTML = '';
+  _clear() {
+    this._parentElement.innerHTML = '';
   }
 
-  #generateIngredientMarkup(ing) {
+  _generateIngredientMarkup(ing) {
     // Creating markup for the ingredient item
 
     return `<li class="recipe__ingredient">
@@ -30,8 +30,8 @@ class RecipeView {
       </li>`;
   }
 
-  #generateMarkup() {
-    const recipe = this.#data;
+  _generateMarkup() {
+    const recipe = this._data;
     return `        
         <figure class="recipe__fig">
         <img src="${recipe.image}" alt="Tomato" class="recipe__img" />
@@ -91,7 +91,7 @@ class RecipeView {
           ${recipe.ingredients.reduce((ingList, ing) => {
             // adding the markup to a single list of all ingredients
 
-            return ingList + this.#generateIngredientMarkup(ing);
+            return ingList + this._generateIngredientMarkup(ing);
           }, '')}
         </ul>
       </div>
@@ -126,11 +126,11 @@ class RecipeView {
                 </svg>
               </div>
               `;
-    this.#clear();
-    this.#parentElement.insertAdjacentHTML('afterbegin', markup);
+    this._clear();
+    this._parentElement.insertAdjacentHTML('afterbegin', markup);
   }
 
-  renderError(message = this.#errMessage) {
+  renderError(message = this._errMessage) {
     const markup = `
       <div class="error">
       <div>
@@ -142,11 +142,11 @@ class RecipeView {
     </div> 
       `;
 
-    this.#clear();
-    this.#parentElement.insertAdjacentHTML('afterbegin', markup);
+    this._clear();
+    this._parentElement.insertAdjacentHTML('afterbegin', markup);
   }
 
-  renderMessage(message = this.#message) {
+  renderMessage(message = this._message) {
     const markup = `
       <div class="message">
           <div>
@@ -158,15 +158,15 @@ class RecipeView {
         </div>
       `;
 
-    this.#clear();
-    this.#parentElement.insertAdjacentHTML('afterbegin', markup);
+    this._clear();
+    this._parentElement.insertAdjacentHTML('afterbegin', markup);
   }
 
   render(data) {
-    this.#data = data;
-    const markup = this.#generateMarkup();
-    this.#clear();
-    this.#parentElement.insertAdjacentHTML('afterbegin', markup);
+    this._data = data;
+    const markup = this._generateMarkup();
+    this._clear();
+    this._parentElement.insertAdjacentHTML('afterbegin', markup);
   }
 
   addHandlerRender(handler) {
