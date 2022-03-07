@@ -1,11 +1,10 @@
 import * as model from './model.js';
 import recipeView from './views/recipeView.js';
 import searchView from './views/searchView.js';
+import resultsView from './views/resultsView.js';
 
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
-
-// api key : 4cf4ee42-6ec3-45a9-bf25-940ad9eb0083
 
 ///////////////////////////////////////
 
@@ -33,15 +32,18 @@ const controlSearchResults = async function () {
   try {
     //Get query from the search bar
     const query = searchView.getQuery();
+    resultsView.renderSpinner();
 
     if (!query) return;
 
     //get serch results for the query
     await model.loadSearchResults(query);
 
-    console.log(model.state.search);
+    //render results
+    resultsView.render(model.state.search.results);
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    resultsView.renderError();
   }
 };
 
@@ -51,3 +53,7 @@ const init = function () {
 };
 
 init();
+
+if(module.hot){
+  module.hot.accept();
+}

@@ -32,6 +32,9 @@ export const loadSearchResults = async function (query) {
 
   const data = await getJSON(`${API_URL}?search=${query}`);
 
+  if (!data.data.recipes.length)
+    throw new Error('No results found for this query', { cause: 'NOT_FOUND' });
+
   state.search.results = data.data.recipes.map(recipe => {
     return {
       id: recipe.id,
