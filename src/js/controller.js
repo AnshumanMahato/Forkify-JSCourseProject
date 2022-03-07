@@ -40,7 +40,7 @@ const controlSearchResults = async function () {
     await model.loadSearchResults(query);
 
     //render results
-    resultsView.render(model.state.search.results);
+    resultsView.render(model.loadResultsPerPage());
   } catch (error) {
     console.error(error);
     resultsView.renderError();
@@ -53,7 +53,3 @@ const init = function () {
 };
 
 init();
-
-if(module.hot){
-  module.hot.accept();
-}
