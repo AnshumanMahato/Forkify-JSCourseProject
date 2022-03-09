@@ -23,7 +23,7 @@ class ResultsView extends View {
 
   _generateMarkup() {
     const recipes = this._data;
-    console.log(recipes);
+    
     return recipes.reduce((recipeList, recipe) => {
       return recipeList + this._generatePreviewMarkup(recipe);
     }, '');
