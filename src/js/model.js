@@ -1,6 +1,6 @@
 //jshint esversion:8
-import { API_URL, RES_PER_PAGE } from './config.js';
-import { getJSON } from './helpers.js';
+import { API_KEY, API_URL, RES_PER_PAGE } from './config.js';
+import { getJSON,sendJSON } from './helpers.js';
 
 export const state = {
   recipe: {},
@@ -116,7 +116,18 @@ export const uploadRecipe = async function (newRecipe) {
       };
     });
 
-  console.log(ingredients);
+  const recipe = {
+    title: newRecipe.title,
+    publisher: newRecipe.publisher,
+    source_url: newRecipe.sourceUrl,
+    image_url: newRecipe.image,
+    servings: newRecipe.servings,
+    cooking_time: newRecipe.cookingTime,
+    ingredients,
+  }
+
+  const data = await sendJSON(`${API_URL}?key=${API_KEY}`,recipe);
+  console.log(data);
 };
 
 export const initState = function () {
