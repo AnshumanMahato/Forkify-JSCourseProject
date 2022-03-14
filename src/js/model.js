@@ -27,10 +27,10 @@ export const loadRecipe = async function (id) {
     servings: recipe.servings,
     cookingTime: recipe.cooking_time,
     ingredients: recipe.ingredients,
-    bookmarked:false,
+    bookmarked: false,
   };
 
-  if(state.bookmarks.some((bookmark) => bookmark.id === state.recipe.id))
+  if (state.bookmarks.some(bookmark => bookmark.id === state.recipe.id))
     state.recipe.bookmarked = true;
 };
 
@@ -69,9 +69,9 @@ export const updateServings = function (newServings) {
   state.recipe.servings = newServings;
 };
 
-const persistBookmarks = function() {
-  localStorage.setItem('bookmarks',JSON.stringify(state.bookmarks));
-}
+const persistBookmarks = function () {
+  localStorage.setItem('bookmarks', JSON.stringify(state.bookmarks));
+};
 
 export const addBookmark = function (recipe) {
   //add to bookmark array in state
@@ -84,23 +84,38 @@ export const addBookmark = function (recipe) {
   persistBookmarks();
 };
 
-export const deleteBookmark = function(id) {
+export const deleteBookmark = function (id) {
   //Find the index of the bookmarked recipe
-  const index = state.bookmarks.findIndex((bookmark) => bookmark.id === id);
+  const index = state.bookmarks.findIndex(bookmark => bookmark.id === id);
 
   //remove the recipe from the array
-  state.bookmarks.splice(index,1);
+  state.bookmarks.splice(index, 1);
 
   //Update the current recipe as not bookmarked
   state.recipe.bookmarked = false;
 
   //Persist data
   persistBookmarks();
-}
+};
 
-export const initState = function() {
+export const uploadRecipe = async function (newRecipe) {
+  const ingredients = Object.entries(newRecipe).filter(
+    entry => entry[0].startsWith('ingredient') && entry[1] !== ''
+  ).map(ing => {
+    const ingData = ing[1].split(',');
+    if(ingData.length < 3) 
+      throw new Error('Wrong ingredient format!!! Please use the correct ingredient format :)');
+    const [quantity,unit,description] = ingData;
+
+    return {quantity: quantity!== ''?+quantity:null,unit:unit.trim(),description: description.trim()};
+  });
+
+  console.log(ingredients);
+};
+
+export const initState = function () {
   const storage = localStorage.getItem('bookmarks');
-  if(!storage) return;
+  if (!storage) return;
 
   state.bookmarks = JSON.parse(storage);
-}
+};

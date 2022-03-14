@@ -21,7 +21,7 @@ class RecipeView extends View {
           ${ing.quantity ? fracty(ing.quantity) : ''}
         </div>
         <div class="recipe__description">
-          <span class="recipe__unit">${ing.unit || ''}</span></span>
+          <span class="recipe__unit">${ing.unit}</span></span>
           ${ing.description}
         </div>
       </li>
