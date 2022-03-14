@@ -90,7 +90,21 @@ const controlBookmarks = function () {
 
 const controlAddRecipe = async function(newRecipe) {
   try {
+    //Render Spinner
+    addRecipeView.renderSpinner();
+
+    //Upload Recipe
     await model.uploadRecipe(newRecipe);
+
+    //Show success message
+    addRecipeView.renderMessage();
+
+    //Render Recipe
+    recipeView.render(model.state.recipe);
+
+    //Hide Form 
+    setTimeout(() => addRecipeView.toggleWindowState(),2500);
+
   } catch (error) {
     console.error(error.message);
     addRecipeView.renderError(error.message);
